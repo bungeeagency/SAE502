@@ -1,0 +1,56 @@
+<!-- templates/add_patient.html -->
+{% extends 'base.html' %}
+{% block title %}Ajouter un Patient{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Ajouter un Patient</h1>
+<form method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    {{ form.hidden_tag() }}
+    <div class="mb-4">
+        {{ form.nom.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.nom(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+        {% for error in form.nom.errors %}
+            <p class="text-red-500 text-xs italic">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="mb-4">
+        {{ form.prenom.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.prenom(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+        {% for error in form.prenom.errors %}
+            <p class="text-red-500 text-xs italic">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="mb-4">
+        {{ form.date_naissance.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.date_naissance(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+        {% for error in form.date_naissance.errors %}
+            <p class="text-red-500 text-xs italic">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="mb-4">
+        {{ form.date_prise_en_charge.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.date_prise_en_charge(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+        {% for error in form.date_prise_en_charge.errors %}
+            <p class="text-red-500 text-xs italic">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="mb-4">
+        {{ form.maladies_connues.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.maladies_connues(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", rows="3") }}
+    </div>
+    <div class="mb-4">
+        {{ form.medecin_id.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.medecin_id(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+        {% for error in form.medecin_id.errors %}
+            <p class="text-red-500 text-xs italic">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="mb-4">
+        {{ form.salle.label(class_="block text-gray-700") }}
+        {{ form.salle(class_="w-full px-4 py-2 border border-gray-300 rounded-md") }}
+      </div>
+    <div class="flex items-center justify-between">
+        {{ form.submit(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline") }}
+    </div>
+
+</form>
+{% endblock %}

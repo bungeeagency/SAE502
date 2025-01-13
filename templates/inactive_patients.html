@@ -1,0 +1,24 @@
+<!-- templates/inactive_patients.html -->
+{% extends 'base.html' %}
+{% block title %}Patients Inactifs{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Liste des Patients Inactifs</h1>
+{% if patients %}
+    <ul class="divide-y divide-gray-200">
+        {% for patient in patients %}
+            <li class="py-4 flex items-center justify-between">
+                <div>
+                    <a href="{{ url_for('patient_detail', id=patient.id) }}" class="text-blue-600 hover:underline">
+                        {{ patient.nom }} {{ patient.prenom }}
+                    </a>
+                </div>
+                <div class="text-sm text-gray-500">
+                    Inactif depuis le {{ patient.date_prise_en_charge.strftime('%d/%m/%Y') }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun patient inactif enregistré.</p>
+{% endif %}
+{% endblock %}

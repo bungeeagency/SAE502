@@ -1,0 +1,28 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+{% block title %}Accueil - Hôpital de Campagne{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Liste des Patients Actifs</h1>
+{% if patients %}
+    <ul class="divide-y divide-gray-200">
+        {% for patient in patients %}
+            <li class="py-4 flex items-center justify-between">
+                <div>
+                    <a href="{{ url_for('patient_detail', id=patient.id) }}" class="text-blue-600 hover:underline">
+                        {{ patient.nom }} {{ patient.prenom }}
+                    </a>
+                </div>
+                <div class="text-sm text-gray-500">
+                    Pris en charge le {{ patient.date_prise_en_charge.strftime('%d/%m/%Y') }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun patient actif enregistré.</p>
+{% endif %}
+
+<!-- Lien vers les patients inactifs (optionnel) -->
+<a href="{{ url_for('inactive_patients') }}" class="text-gray-700 hover:text-blue-600 mt-4 inline-block">Voir les Patients Inactifs</a>
+
+{% endblock %}

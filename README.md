@@ -1,117 +1,111 @@
-# 🏥 Réseau Hôpital de Campagne
+# Système de Gestion Hospitalière
 
-Conception et implémentation d'une infrastructure réseau sécurisée pour un hôpital de campagne mobile. Ce projet vise à fournir une solution réseau robuste et sécurisée pour les déploiements médicaux d'urgence.
+Ce projet est une application web Flask conçue pour gérer les patients et le personnel médical d'un hôpital de campagne. Il a été développé dans le cadre d'un projet étudiant pour démontrer la mise en œuvre des concepts de développement web et de gestion de base de données.
 
-## 🎯 Objectifs du Projet
+## Fonctionnalités
 
-- Infrastructure réseau hautement disponible
-- Sécurisation optimale des données médicales
-- Communications unifiées pour le personnel médical
-- Déploiement rapide et modulaire
+- **Gestion des utilisateurs**
+  - Système d'authentification pour les médecins et administrateurs
+  - Différents niveaux d'accès (médecin, administrateur)
+  - Gestion des sessions utilisateurs
 
-## 🏗 Architecture
+- **Gestion des patients**
+  - Ajout et suivi des patients
+  - Gestion des traitements
+  - Suivi des symptômes
+  - État actif/inactif des patients
+  - Attribution des salles
 
-```mermaid
-graph TD
-    A[Internet] -->|Firewall| B[DMZ]
-    B --> C[Routeur Principal]
-    C -->|VLAN 10| D[Services Médicaux]
-    C -->|VLAN 20| E[Administration]
-    C -->|VLAN 30| F[VoIP]
-    C -->|VLAN 40| G[IoT Médical]
-    B -->|VPN| H[Accès Distant]
-```
+- **Interface administrative**
+  - Ajout de nouveaux médecins (réservé aux administrateurs)
+  - Gestion des permissions
 
-## 🛠 Technologies Utilisées
+## Technologies utilisées
 
-- **Réseau**
-  - Cisco IOS (Routeurs & Switches)
-  - VLANs pour la segmentation
-  - HSRP pour la redondance
-  - QoS pour la VoIP
+- **Backend**
+  - Python 3.x
+  - Flask 3.0.3
+  - SQLAlchemy 3.1.1
+  - Flask-WTF 1.2.1
 
-- **Sécurité**
-  - pfSense Firewall
-  - Suricata IDS/IPS
-  - VPN Site-to-Site
-  - 802.1X Authentication
+- **Frontend**
+  - HTML5
+  - Tailwind CSS
+  - JavaScript
 
-- **Communications**
-  - Asterisk VoIP Server
-  - SIP Trunking
-  - Téléphones IP
+- **Base de données**
+  - SQLite
 
-## 🔐 Mesures de Sécurité
+## Installation
 
-| Service | Protection |
-|---------|------------|
-| Données Médicales | Chiffrement AES-256 |
-| Accès Réseau | 802.1X + RADIUS |
-| Surveillance | IDS/IPS + Logging |
-| Communications | TLS + SRTP |
-
-## 📋 Prérequis
-
-- Cisco IOS 15.x ou supérieur
-- pfSense 2.6.0 ou supérieur
-- Suricata 6.x
-- Asterisk 18.x
-
-## 🚀 Installation
-
-1. **Configuration des VLANs**
+1. Cloner le repository
 ```bash
-# Sur le switch core
-vlan 10
-name MEDICAL
-vlan 20
-name ADMIN
-vlan 30
-name VOIP
-vlan 40
-name IOT
+git clone https://github.com/votre-username/hopital-campagne.git
+cd hopital-campagne
 ```
 
-2. **Configuration du Firewall**
+2. Créer un environnement virtuel
 ```bash
-# Règles pfSense basiques
-# Autoriser VLAN médical -> Internet (443/80)
-# Bloquer tout autre trafic sortant
+python -m venv venv
+source venv/bin/activate  # Pour Linux/Mac
+venv\Scripts\activate     # Pour Windows
 ```
 
-3. **Configuration VoIP**
+3. Installer les dépendances
 ```bash
-# Config Asterisk minimale
-[internal]
-type=internal
-context=internal
+pip install -r requirements.txt
 ```
 
-## 📈 Monitoring
+4. Initialiser la base de données
+```bash
+python create_user.py
+```
 
-- Surveillance temps réel via SNMP
-- Alertes IDS/IPS
-- Logs centralisés
-- Métriques de performance réseau
+5. Lancer l'application
+```bash
+python app.py
+```
 
-## 🔍 Tests de Sécurité
+## Configuration
 
-- [x] Tests de pénétration réseau
-- [x] Audit de sécurité VoIP
-- [x] Vérification isolation VLAN
-- [x] Tests de failover
-- [x] Audit conformité RGPD
+Les paramètres de configuration se trouvent dans le fichier `config.py`. Assurez-vous de modifier la `SECRET_KEY` avant le déploiement en production.
 
-## 📄 Documentation
+## Identifiants par défaut
 
-- [Guide d'installation détaillé](docs/installation.md)
-- [Plan d'adressage IP](docs/ip-plan.md)
-- [Procédures d'urgence](docs/emergency.md)
-- [Politique de sécurité](docs/security.md)
+L'application est initialisée avec deux comptes :
 
+- **Administrateur**
+  - Email : admin@mail.hopital-h6.net
+  - Mot de passe : tpRT9025
 
+- **Médecin**
+  - Email : medecin@mail.hopital-h6.net
+  - Mot de passe : tpRT9025
 
----
-Fait avec ❤️ par Locqmen HAMDI
-Étudiant en BUT RT - Option Cybersécurité
+## Structure du projet
 
+```
+hopital-campagne/
+├── app.py              # Point d'entrée de l'application
+├── config.py           # Configuration de l'application
+├── models.py           # Modèles de base de données
+├── forms.py            # Formulaires WTForms
+├── routes.py           # Routes de l'application
+├── decorators.py       # Décorateurs personnalisés
+├── requirements.txt    # Dépendances du projet
+└── templates/          # Templates HTML
+    ├── base.html
+    ├── index.html
+    └── ...
+```
+
+## Sécurité
+
+- Mots de passe hashés avec Werkzeug Security
+- Protection CSRF sur tous les formulaires
+- Contrôle d'accès basé sur les rôles
+- Sessions sécurisées
+
+## Auteur
+
+Réalisé avec ❤️ par Locqmen HAMDI - Projet réalisé dans le cadre du cours de la SAé 502 en 3ème année de BUT R&T

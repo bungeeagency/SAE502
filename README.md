@@ -40,7 +40,7 @@ Ce projet est une application web Flask conçue pour gérer les patients et le p
 
 1. Cloner le repository
 ```bash
-git clone https://github.com/votre-username/hopital-campagne.git
+git clone https://github.com/bungeeagency/SAE502.git
 cd hopital-campagne
 ```
 
